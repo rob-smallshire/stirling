@@ -1,0 +1,15 @@
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = [
+    "tests",
+]
+
+norecursedirs=[
+    "tests/helpers",
+    "tests/data",
+]
+
+log_cli = true
+log_cli_level = 10
+
+addopts = '-s -p no:doctest'
