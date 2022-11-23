@@ -1,16 +1,21 @@
+import logging
 
-def k_subsets(s: set, k: int):
+logger = logging.getLogger(__name__)
+
+
+def k_subsets(s: list, k: int):
     return list(_k_subsets(s, k))
 
 
-def _k_subsets(s: set, k: int):
+def _k_subsets(s: list, k: int):
     """
     Yields:
         Solutions, each of which is a list of sets
     """
+    logger.debug("_k_subsets(%r, %r)", s, k)
     n = len(s)
     if n == 0 and k == 0:
-        yield []  # One solution containing k == 0 partitions
+        yield [s]  # One solution containing k == 0 partitions
         return
     if k == 0:
         return
@@ -19,41 +24,27 @@ def _k_subsets(s: set, k: int):
     if k == 1:
         yield [s]
         return
-    if n == k:
-        yield [{e} for e in s]
-        return
-    for e in s:
-        singleton = {e}
-        remainder = s - singleton
-        for recurrence in _k_subsets(remainder, k):
-            for i in range(len(recurrence)):
-                pre, ith, post = recurrence[:i], recurrence[i], recurrence[i+1:]
-                result = [*pre, ith | singleton, *post]
-                print(f"{singleton = }, {remainder = }, {recurrence = }, {i = }, {result = }")
-                yield result
 
+    # Consider the recurrence relation S(n, k) = S(n-1, k-1) + k.S(n-1, k)
+    # This is so because the solutions for S(n, k) comprise two kinds of
+    # results based on subproblems which are smaller by omitted a single
+    # element. We set aside this singleton element from s, to produce the
+    # smaller remiander set.
 
-def dedup(seq_of_sets):
-    f_sets = frozenset(frozenset(s) for s in seq_of_sets)
-    assert len(f_sets) == len(seq_of_sets)
-    return f_sets
+    *remainder, singleton = s
 
+    # The first kind of solution is that enumerated by the first term of the
+    # recurrence relation giving S(n-1, k-1) solutions to the sub-problem.
+    # For each of these solutions, we can add the singleton back in to produce
+    # a solution to the larger problem.
+    for p in _k_subsets(remainder, k - 1):
+        yield p + [[singleton]]
 
-
-#  {1, 2} -> [{1} {2}] P
-
-#  {1, 2, 3} -> [{1} {2, 3}]  PR   A
-#               [{1, 3} {2}]  PL   B
-#               [{3} {1, 2}]  --   C
-
-#  {1, 2. 3. 4} -> [{1}, {2, 3, 4}] AR
-#                  [{2}, {1, 3, 4}] BR
-#                  [{3}, {1, 2, 4}] CR
-#                  [{4}, {1, 2, 3}] --
-#                  [{1, 4}, {2, 3}] AL
-#                  [{2, 4}, {1, 3}] BL
-#                  [{3, 4}, {1, 2}] CL
-
-# Recurence has same k but a smaller set
-# For each result in the recurrence, insert the singleton into
-# each group in turn, including the empty set.
+    # The second kind of solution is that enumerated by the second term of
+    # the recurrence relation giving S(n-1, k) solutions to the sub-problem.
+    # For each of these solutions to the sub-problem we generate k solutions
+    # by incorporating the singleton element into each partition of the
+    # solution in turn.
+    for q in _k_subsets(remainder, k):
+        for i in range(k):
+            yield [*q[:i], q[i] + [singleton], *q[i+1:]]
