@@ -36,8 +36,16 @@ logger = logging.getLogger(__name__)
 # The number of solutions to S(4, 3) is therefore the number of solutions to S(3, 2) plus
 # the number of solutions to S(3, 3) multiplied by k, which in general is,
 #
-# S(n+1, k)  =  S(n, k-1)  +  k * S(n, k)
-
+#  S(n+1, k)  =  S(n, k-1)  +  k * S(n, k)
+#
+# This is the recurrence relation given in the Wikipedia article
+# <https://en.wikipedia.org/wiki/Stirling_numbers_of_the_second_kind>, albeit with the two
+# terms transposed.
+#
+# In the code below it's more convenient to express this recurrence relation with n reduced
+# by one as,
+#
+#  S(n, k)  =  S(n-1, k-1)  +  k * S(n-1, k)
 
 def k_subsets(s: list, k: int):
     return list(_k_subsets(s, k))
