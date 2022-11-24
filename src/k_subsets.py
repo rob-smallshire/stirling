@@ -2,6 +2,42 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+# Given a set {1, 2, 3, 4} and the requirement to partition it into k=3 non-empty
+# subsets, solutions can be generated from small sub problems in two ways:
+#
+# First, we can ask for one fewer (k=2) partitions of a smallser set {1, 2, 3} that
+# excludes a singleton element {4},
+#
+#  [{1, 2}, {3}]
+#  [{1, 3}, {2}]
+#  [{1}, {2, 3}]
+#
+# we can generate solutions to the original problem by adding back the singleton to
+# each result give four partitions:
+#
+#  [{1, 2}, {3}, {4}]
+#  [{1, 3}, {2}, {4}]
+#  [{1}, {2, 3}, {4}]
+#
+# The second way of reducing problem is to ask for k=3 partitions of the smaller
+# set which excludes the singleton. In this case there is only one such solution:
+#
+#  [{1}, {2}, {3}]
+#
+# We can then add the element of the singleton set back to each partition of this
+# result in turn, generating a further three solutions to the original problem:
+#
+#  [{1, 4}, {2}, {3}]
+#  [{1}, {2, 4}, {3}]
+#  [{1}, {2}, {3, 4}]
+#
+# This gives a total of six solutions.
+#
+# The number of solutions to S(4, 3) is therefore the number of solutions to S(3, 2) plus
+# the number of solutions to S(3, 3) multiplied by k, which in general is,
+#
+# S(n+1, k)  =  S(n, k-1)  +  k * S(n, k)
+
 
 def k_subsets(s: list, k: int):
     return list(_k_subsets(s, k))
