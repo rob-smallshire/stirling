@@ -68,6 +68,9 @@ def _k_subsets(s: list, k: int):
     if k == 1:
         yield [s]
         return
+    if k == n:
+        yield [[e] for e in s]
+        return
 
     # Consider the recurrence relation S(n, k) = S(n-1, k-1) + k.S(n-1, k)
     # This is so because the solutions for S(n, k) comprise two kinds of
