@@ -59,17 +59,17 @@ def _k_subsets(s: list, k: int):
     logger.debug("_k_subsets(%r, %r)", s, k)
     n = len(s)
     if n == 0 and k == 0:
-        yield [set()]  # One solution containing k == 0 partitions
+        yield [[]]  # One solution containing k == 0 partitions
         return
     if k == 0:
         return
     if n == 0:
         return
     if k == 1:
-        yield [set(s)]
+        yield [s]
         return
     if k == n:
-        yield [{e} for e in s]
+        yield [[e] for e in s]
         return
 
     # Consider the recurrence relation S(n, k) = S(n-1, k-1) + k.S(n-1, k)
@@ -80,7 +80,7 @@ def _k_subsets(s: list, k: int):
 
     *remainder, e = s
 
-    singleton = {e}
+    singleton = [e]
 
     # The first kind of solution is that enumerated by the first term of the
     # recurrence relation giving S(n-1, k-1) solutions to the sub-problem.
@@ -96,4 +96,4 @@ def _k_subsets(s: list, k: int):
     # solution in turn.
     for q in _k_subsets(remainder, k):
         for i in range(k):
-            yield [*q[:i], q[i] | singleton, *q[i+1:]]
+            yield [*q[:i], q[i] + singleton, *q[i+1:]]
