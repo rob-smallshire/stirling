@@ -1,7 +1,3 @@
-import logging
-
-logger = logging.getLogger(__name__)
-
 # Given a set {1, 2, 3, 4} and the requirement to partition it into k=3 non-empty
 # subsets, solutions can be generated from small sub problems in two ways:
 #
@@ -42,22 +38,34 @@ logger = logging.getLogger(__name__)
 # <https://en.wikipedia.org/wiki/Stirling_numbers_of_the_second_kind>, albeit with the two
 # terms transposed.
 #
-# In the code below it's more convenient to express this recurrence relation with n reduced
+# In the code below it is more convenient to express this recurrence relation with n reduced
 # by one as,
 #
 #  S(n, k)  =  S(n-1, k-1)  +  k * S(n-1, k)
-
-def k_subsets(s: list, k: int):
-    return list(_k_subsets(s, k))
+from collections.abc import Iterator
 
 
-def _k_subsets(s: list, k: int):
-    """
+def k_subsets(s: list, k: int) -> Iterator[list[list]]:
+    """Partition a collection into a given number of non-empty subsets.
+
+    This function operates on, and returns, lists rather than sets so that both non-hashable and
+    duplicate items may be used.
+
+    Note:
+        The number of ways to partition a set of n objects into k non-empty subsets is known as the
+        `Stirling Number of the Second Kind <https://en.wikipedia.org/wiki/Stirling_numbers_of_the_second_kind>`_.
+
+    Args:
+        s: A list of items for which all the partitions into k non-empty subsets will be generated.
+        k: The number of subsets into which to partition s.
+
     Yields:
-        Solutions, each of which is a list of sets
+        Arrangements k subsets of s. Each arrangement is a list of partitions.
+        Each partition is a list of items.
     """
-    logger.debug("_k_subsets(%r, %r)", s, k)
     n = len(s)
+    # Handle the trivial cases. Some of these are strictly necessary for correctness
+    # but do increase the performance significantly.
     if n == 0 and k == 0:
         yield [[]]  # One solution containing k == 0 partitions
         return
@@ -86,7 +94,7 @@ def _k_subsets(s: list, k: int):
     # recurrence relation giving S(n-1, k-1) solutions to the sub-problem.
     # For each of these solutions, we can add the singleton back in to produce
     # a solution to the larger problem.
-    for p in _k_subsets(remainder, k - 1):
+    for p in k_subsets(remainder, k - 1):
         yield p + [singleton]
 
     # The second kind of solution is that enumerated by the second term of
@@ -94,6 +102,6 @@ def _k_subsets(s: list, k: int):
     # For each of these solutions to the sub-problem we generate k solutions
     # by incorporating the singleton element into each partition of the
     # solution in turn.
-    for q in _k_subsets(remainder, k):
+    for q in k_subsets(remainder, k):
         for i in range(k):
             yield [*q[:i], q[i] + singleton, *q[i+1:]]

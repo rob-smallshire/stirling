@@ -1,54 +1,54 @@
-from k_subsets import k_subsets
+from stirling import k_subsets
 
 
 def test_n_0__k_0():
-    assert k_subsets(set(), 0) == [
+    assert list(k_subsets(set(), 0)) == [
         [[]]
     ]
 
 def test_n_0__k_1():
-    assert k_subsets(set(), 1) == []
+    assert list(k_subsets(set(), 1)) == []
 
 
 def test_n_1__k_0():
-    assert k_subsets([1], 0) == []
+    assert list(k_subsets([1], 0)) == []
 
 
 def test_n_1__k_1():
-    assert k_subsets([1], 1) == [
+    assert list(k_subsets([1], 1)) == [
         [[1]]
     ]
 
 
 def test_n_2__k_1():
-    assert k_subsets([1, 2], 1) == [
+    assert list(k_subsets([1, 2], 1)) == [
         [[1, 2]]
     ]
 
 
 def test_n_2__k_2():
-    assert k_subsets([1, 2], 2) == [
+    assert list(k_subsets([1, 2], 2)) == [
         [[1], [2]]
     ]
 
 def test_n_2__k_3():
-    assert k_subsets([1, 2], 3) == [
+    assert list(k_subsets([1, 2], 3)) == [
     ]
 
 
 def test_n_3__k_0():
-    assert k_subsets([1, 2, 3], 0) == [
+    assert list(k_subsets([1, 2, 3], 0)) == [
     ]
 
 
 def test_n_3__k_1():
-    assert k_subsets([1, 2, 3], 1) == [
+    assert list(k_subsets([1, 2, 3], 1)) == [
         [[1, 2, 3]]
     ]
 
 
 def test_n_3__k_2():
-    assert k_subsets([1, 2, 3], 2) == [
+    assert list(k_subsets([1, 2, 3], 2)) == [
         [[1, 2], [3]],
         [[1, 3], [2]],
         [[1], [2, 3]],
@@ -56,24 +56,24 @@ def test_n_3__k_2():
 
 
 def test_n_3__k_3():
-    assert k_subsets([1, 2, 3], 3) == [
+    assert list(k_subsets([1, 2, 3], 3)) == [
         [[1], [2], [3]],
     ]
 
 
 def test_n_4__k_0():
-    assert k_subsets([1, 2, 3, 4], 0) == [
+    assert list(k_subsets([1, 2, 3, 4], 0)) == [
     ]
 
 
 def test_n_4__k_1():
-    assert k_subsets([1, 2, 3, 4], 1) == [
+    assert list(k_subsets([1, 2, 3, 4], 1)) == [
         [[1, 2, 3, 4]],
     ]
 
 
 def test_n_4__k_2():
-    assert k_subsets([1, 2, 3, 4], 2) == [
+    assert list(k_subsets([1, 2, 3, 4], 2)) == [
          [[1, 2, 3], [4]],
          [[1, 2, 4], [3]],
          [[1, 2], [3, 4]],
@@ -84,7 +84,7 @@ def test_n_4__k_2():
     ]
 
 def test_n_4__k_3():
-    assert k_subsets([1, 2, 3, 4], 3) == [
+    assert list(k_subsets([1, 2, 3, 4], 3)) == [
         [[1, 2], [3], [4]],
         [[1, 3], [2], [4]],
         [[1], [2, 3], [4]],
@@ -94,22 +94,22 @@ def test_n_4__k_3():
     ]
 
 def test_n_4__k_4():
-    assert k_subsets([1, 2, 3, 4], 4) == [
+    assert list(k_subsets([1, 2, 3, 4], 4)) == [
         [[1], [2], [3], [4]],
     ]
 
 
 def test_n_5__k_0():
-    assert k_subsets([1, 2, 3, 4, 5], 0) == []
+    assert list(k_subsets([1, 2, 3, 4, 5], 0)) == []
 
 
 def test_n_5__k_1():
-    assert k_subsets([1, 2, 3, 4, 5], 1) == [
+    assert list(k_subsets([1, 2, 3, 4, 5], 1)) == [
         [[1, 2, 3, 4, 5]],
     ]
 
 def test_n_5__k_2():
-    assert k_subsets([1, 2, 3, 4, 5], 2) == [
+    assert list(k_subsets([1, 2, 3, 4, 5], 2)) == [
         [[1, 2, 3, 4], [5]],
         [[1, 2, 3, 5], [4]],
         [[1, 2, 3], [4, 5]],
@@ -129,7 +129,7 @@ def test_n_5__k_2():
 
 
 def test_n_5__k_3():
-    assert k_subsets([1, 2, 3, 4, 5], 3) == [
+    assert list(k_subsets([1, 2, 3, 4, 5], 3)) == [
         [[1, 2, 3], [4], [5]],
         [[1, 2, 4], [3], [5]],
         [[1, 2], [3, 4], [5]],
@@ -158,7 +158,7 @@ def test_n_5__k_3():
     ]
 
 def test_n_5__k_4():
-    assert k_subsets([1, 2, 3, 4, 5], 4) == [
+    assert list(k_subsets([1, 2, 3, 4, 5], 4)) == [
         [[1, 2], [3], [4], [5]],
         [[1, 3], [2], [4], [5]],
         [[1], [2, 3], [4], [5]],
@@ -173,6 +173,6 @@ def test_n_5__k_4():
 
 
 def test_n_5__k_5():
-    assert k_subsets([1, 2, 3, 4, 5], 5) == [
+    assert list(k_subsets([1, 2, 3, 4, 5], 5)) == [
         [[1], [2], [3], [4], [5]],
     ]

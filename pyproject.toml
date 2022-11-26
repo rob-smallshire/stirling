@@ -1,15 +1,17 @@
+[build-system]
+build-backend = 'setuptools.build_meta'
+# Minimum requirements for the build system to execute.
+requires = ["setuptools>=49.9.0"]  # PEP 508 specifications.
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 testpaths = [
     "tests",
 ]
-
-norecursedirs=[
-    "tests/helpers",
-    "tests/data",
-]
-
+norecursedirs="tests/helpers"
 log_cli = true
-log_cli_level = 10
+log_cli_level = "DEBUG"
 
-addopts = '-s -p no:doctest'
+[tool.black]
+line-length = 100
+target-version = ['py39']
