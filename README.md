@@ -14,8 +14,12 @@
 
 ## Examples
 
-A collection of utility functions for processing iterable series which
-aren't in [itertools](https://docs.python.org/3/library/itertools.html) or [more-itertools](https://more-itertools.readthedocs.io). Some are little more than simple aliases with less confusing names.
+A function for generating partitions of a collection into a specific number of
+non-empty subsets. The number of ways of arranging a set of size n into k non-empty subsets is known at the [Stirling Number of the Second Kind](https://en.wikipedia.org/wiki/Stirling_numbers_of_the_second_kind) 
+or S(n, k).
+
+For example, to find the arrangements of a list of 4 integers into 3 non-empty
+subsets, use:
 
     >>> from stirling import k_subsets
     >>> for arrangement in k_subsets([1, 2, 3, 4], 3):
