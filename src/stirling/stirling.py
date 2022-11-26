@@ -42,6 +42,7 @@
 # by one as,
 #
 #  S(n, k)  =  S(n-1, k-1)  +  k * S(n-1, k)
+
 from collections.abc import Iterator
 
 
@@ -64,7 +65,7 @@ def k_subsets(s: list, k: int) -> Iterator[list[list]]:
         Each partition is a list of items.
     """
     n = len(s)
-    # Handle the trivial cases. Some of these are strictly necessary for correctness
+    # Handle the trivial cases. Some of these are not strictly necessary for correctness
     # but do increase the performance significantly.
     if n == 0 and k == 0:
         yield [[]]  # One solution containing k == 0 partitions
