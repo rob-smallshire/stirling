@@ -5,6 +5,12 @@
 
 ## Installation
 
+The `stirling` package is available on the Python Package Index (PyPI):
+
+[![PyPI version](https://badge.fury.io/py/stirling.svg)](https://badge.fury.io/py/stirling)
+
+Stirling should work with Python 3.8 or greater. To install:
+
     $ pip install stirling
 
 
