@@ -44,6 +44,7 @@
 #  S(n, k)  =  S(n-1, k-1)  +  k * S(n-1, k)
 
 from collections.abc import Iterator
+from math import comb, factorial
 
 
 def k_subsets(s: list, k: int) -> Iterator[list[list]]:
@@ -63,7 +64,12 @@ def k_subsets(s: list, k: int) -> Iterator[list[list]]:
     Yields:
         Arrangements k subsets of s. Each arrangement is a list of partitions.
         Each partition is a list of items.
+
+    Raises:
+        ValueError: If the number of partitions k is negative.
     """
+    if k < 0:
+        raise ValueError(f"The number of partitions k={k} is negative")
     n = len(s)
     # Handle the trivial cases. Some of these are not strictly necessary for correctness
     # but do increase the performance significantly.
@@ -106,3 +112,25 @@ def k_subsets(s: list, k: int) -> Iterator[list[list]]:
     for q in k_subsets(remainder, k):
         for i in range(k):
             yield [*q[:i], q[i] + singleton, *q[i+1:]]
+
+
+def s2(n: int, k: int) -> int:
+    """The Stirling number of the second kind.
+
+    Args:
+        n: The number of items in the set to parition.
+        k: The number of partitions.
+
+    Returns:
+        The number of ways to partition a set on n objects into k non-empty subsets.
+
+    Raises:
+        ValueError: if n or k are negative.
+    """
+    if n < 0:
+        raise ValueError(f"The number of items n={n} in the set is negative")
+    if k < 0:
+        raise ValueError(f"The number of partitions k={k} is negative")
+    return sum((-1)**(k-j) * comb(k, j) * j**n for j in range(k+1)) // factorial(k)
+
+
