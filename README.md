@@ -34,7 +34,9 @@ subsets, use:
     [[1], [2, 4], [3]]
     [[1], [2], [3, 4]]
 
-## CI/CD
+To determine the number of arrangements of a set of 10 items into 5 non-empty subsets, use
+the `s2` function:
 
-    $ bumpversion patch
-    $ git push --follow-tags
+    >>> from stirling import s2
+    >>> s2(10, 5)
+    42525

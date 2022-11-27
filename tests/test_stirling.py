@@ -3,8 +3,7 @@ from itertools import product, chain
 
 from pytest import mark, raises
 
-from stirling import k_subsets
-from stirling.stirling import s2
+from stirling import k_subsets, s2
 
 
 def test_n_0__k_0():
