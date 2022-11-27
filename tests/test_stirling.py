@@ -3,7 +3,7 @@ from stirling import k_subsets
 
 def test_n_0__k_0():
     assert list(k_subsets(set(), 0)) == [
-        [[]]
+        []  # One solution containing zero partitions
     ]
 
 def test_n_0__k_1():

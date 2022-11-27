@@ -68,7 +68,7 @@ def k_subsets(s: list, k: int) -> Iterator[list[list]]:
     # Handle the trivial cases. Some of these are not strictly necessary for correctness
     # but do increase the performance significantly.
     if n == 0 and k == 0:
-        yield [[]]  # One solution containing k == 0 partitions
+        yield []  # One solution containing k == 0 partitions
         return
     if k == 0:
         return
