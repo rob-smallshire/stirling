@@ -1,3 +1,5 @@
+from hypothesis.strategies import lists, integers
+
 from stirling import k_subsets
 
 
@@ -176,3 +178,7 @@ def test_n_5__k_5():
     assert list(k_subsets([1, 2, 3, 4, 5], 5)) == [
         [[1], [2], [3], [4], [5]],
     ]
+
+
+def test_n_8_k_5():
+    assert sum(1 for _ in k_subsets(list(range(8)), 5)) == 1050
