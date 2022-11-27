@@ -3,8 +3,6 @@
 ![CI](https://github.com/rob-smallshire/stirling/actions/workflows/actions.yml/badge.svg)
 
 
-[![codecov](https://codecov.io/gh/rob-smallshire/stirling/branch/master/graph/badge.svg?token=66QU3UW6N3)](https://codecov.io/gh/rob-smallshire/stirling)
-
 ## Installation
 
     $ pip install stirling
