@@ -1,7 +1,5 @@
 # Stirling
 
-[![Documentation Status](https://readthedocs.org/projects/stirling/badge/?version=latest)](https://stirling.readthedocs.io/en/latest/?badge=latest)
-
 ![CI](https://github.com/rob-smallshire/stirling/actions/workflows/actions.yml/badge.svg)
 
 
